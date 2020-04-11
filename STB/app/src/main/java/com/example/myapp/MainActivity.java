@@ -116,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (passBox.getText().toString().equals(userCursor.getString( userCursor.getColumnIndex("passsen")))) {
             userCursor.close();
-            Intent intent = new Intent(getApplicationContext(), UserActivity.class);
+            Intent intent = new Intent(getApplicationContext(), SelectActivity.class);
             intent.putExtra("id", id_pass);
             startActivity(intent);
         }

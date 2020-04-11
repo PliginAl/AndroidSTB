@@ -25,6 +25,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".UserActivity"></activity>
+        <activity android:name=".SelectActivity"></activity>
 
         <provider
             android:name=".GenericFileProvider"
