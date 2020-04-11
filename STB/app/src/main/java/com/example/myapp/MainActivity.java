@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
     ListView userList;
     DatabaseHelper databaseHelper;
+    ForCreateDB createDB;
     SQLiteDatabase db;
     Cursor userCursor;
     SimpleCursorAdapter userAdapter;
@@ -53,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        createDB = new ForCreateDB(getApplicationContext());
         databaseHelper = new DatabaseHelper(getApplicationContext());
     }
 
@@ -64,13 +66,18 @@ public class MainActivity extends AppCompatActivity {
         db = databaseHelper.getReadableDatabase();
 
         //получаем данные из бд в виде курсора
+
+        userCursor =  db.rawQuery("select _id, fio, posts from USERS;", null);
         //userCursor =  db.rawQuery("select * from "+ DatabaseHelper.TABLE, null);
         // определяем, какие столбцы из курсора будут выводиться в ListView
+        String[] headers = new String[] {"fio","posts"};
         //String[] headers = new String[] {DatabaseHelper.COLUMN_NAME, DatabaseHelper.COLUMN_YEAR};
         // создаем адаптер, передаем в него курсор
-       // userAdapter = new SimpleCursorAdapter(this, android.R.layout.two_line_list_item,
-               // userCursor, headers, new int[]{android.R.id.text1, android.R.id.text2}, 0);
-        //userList.setAdapter(userAdapter);
+        userAdapter = new SimpleCursorAdapter(this, android.R.layout.two_line_list_item,
+                userCursor, headers, new int[]{android.R.id.text1, android.R.id.text2}, 0);
+        //userAdapter = new SimpleCursorAdapter(this, android.R.layout.two_line_list_item,
+        //userCursor, headers, new int[]{android.R.id.text1, android.R.id.text2}, 0);
+        userList.setAdapter(userAdapter);
     }
     // по нажатию на кнопку запускаем UserActivity для добавления данных
     public void add(View view){

@@ -1,7 +1,7 @@
 package com.example.myapp;
 
 
-/*import android.content.Context;
+import android.content.Context;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-public class DatabaseHelper extends SQLiteOpenHelper {
+public class ForCreateDB extends SQLiteOpenHelper {
 
     public static final String TABLE = "sen.db";
     public static final String COLUMN_ID = "sen.db";
@@ -29,7 +29,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private final Context mContext;
     private boolean mNeedUpdate = false;
 
-    public DatabaseHelper(Context context) {
+    public ForCreateDB(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
         if (android.os.Build.VERSION.SDK_INT >= 17)
             DB_PATH = context.getApplicationInfo().dataDir + "/databases/";
@@ -107,7 +107,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             mNeedUpdate = true;
     }
 }
-*/
 
 
 
@@ -121,7 +120,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
 
-import android.content.Context;
+
+/*import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -252,4 +252,4 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS "+TABLE);
         onCreate(db);
     }
-}
+}*/
