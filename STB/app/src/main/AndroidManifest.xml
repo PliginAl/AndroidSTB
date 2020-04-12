@@ -26,6 +26,7 @@
         </activity>
         <activity android:name=".UserActivity"></activity>
         <activity android:name=".SelectActivity"></activity>
+        <activity android:name=".textSActivity"></activity>
 
         <provider
             android:name=".GenericFileProvider"
