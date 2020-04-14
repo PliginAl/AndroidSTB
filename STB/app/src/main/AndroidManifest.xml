@@ -25,8 +25,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".UserActivity"></activity>
-        <activity android:name=".SelectActivity"></activity>
-        <activity android:name=".textSActivity"></activity>
+        <activity android:name=".STBActivity"></activity>
+        <activity android:name=".StatusActivity"></activity>
 
         <provider
             android:name=".GenericFileProvider"
