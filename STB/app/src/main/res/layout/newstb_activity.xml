@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/TV6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="13pt"
+        android:text="Создание предписания"
+        android:layout_gravity="center"/>
+
+    <TextView
+        android:id="@+id/TV7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Выберите участок" />
+
+    <Spinner
+        android:id="@+id/spinOrg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"/>
+
+    <TextView
+        android:id="@+id/TV8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Выберите выработку" />
+
+    <Spinner
+        android:id="@+id/spinLoc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"/>
+    <TextView
+        android:id="@+id/TV9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Выберите описание" />
+
+    <Spinner
+        android:id="@+id/spinDesc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"/>
+
+    <Button
+        android:id="@+id/saveSTB"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:text="Сохранить"
+        android:onClick="saveSTB"
+        android:layout_gravity="center"/>
+
+</LinearLayout>

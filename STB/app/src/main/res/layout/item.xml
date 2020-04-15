@@ -3,24 +3,37 @@
     android:layout_height="match_parent" >
 
     <TextView
-        android:id="@+id/a"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="a" />
-
-    <TextView
-        android:id="@+id/b"
+        android:id="@+id/date"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="2"
-        android:text="b" />
+        android:text="-" />
 
     <TextView
-        android:id="@+id/c"
+        android:id="@+id/org"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="2"
-        android:text="b" />
+        android:text="-" />
 
+    <TextView
+        android:id="@+id/loc"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        android:text="-" />
+
+    <TextView
+        android:id="@+id/status"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        android:text="-" />
+
+    <TextView
+        android:id="@+id/desc"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        android:text="-" />
 </LinearLayout>
