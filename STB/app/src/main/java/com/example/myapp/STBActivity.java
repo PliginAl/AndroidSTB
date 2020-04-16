@@ -50,6 +50,7 @@ public class STBActivity extends AppCompatActivity {
         stbList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id_stb) {
+
                 Intent intent = new Intent(getApplicationContext(), StatusActivity.class);
                 intent.putExtra("id_stb", id_stb);
                 startActivity(intent);
@@ -87,7 +88,8 @@ public class STBActivity extends AppCompatActivity {
                     "INNER JOIN ORG ON STB.idorg = ORG._id) \n" +
                     "INNER JOIN locats ON STB.idl = locats._id) \n" +
                     "INNER JOIN texts ON STB.idt = texts._id\n" +
-                    "WHERE tab1.idstatusname < 90";
+                    "WHERE tab1.idstatusname < 90\n" +
+                    "ORDER BY STB._id DESC";
         }
         else {
             addSTBButton.setVisibility(View.GONE);
@@ -100,7 +102,8 @@ public class STBActivity extends AppCompatActivity {
                     "INNER JOIN ORG ON STB.idorg = ORG._id) \n" +
                     "INNER JOIN locats ON STB.idl = locats._id) \n" +
                     "INNER JOIN texts ON STB.idt = texts._id\n" +
-                    "WHERE tab1.idstatusname > 90";
+                    "WHERE tab1.idstatusname > 90\n" +
+                    "ORDER BY STB._id DESC";
         }
 
         userCursor =  db.rawQuery(sql, null);

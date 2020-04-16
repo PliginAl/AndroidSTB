@@ -1,5 +1,7 @@
 package com.example.myapp;
 
+import android.content.ContentValues;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -8,7 +10,6 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -29,7 +30,7 @@ public class CreateSTBActivity extends AppCompatActivity {
     SimpleCursorAdapter userAdapter;
 
     String[] from = new String[] {"name"};
-    int[] to  = new int[]{android.R.id.text1};
+    int[] to  = new int[]{R.id.t1};
 
 
 
@@ -83,16 +84,18 @@ public class CreateSTBActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent,
                                        View itemSelected, int selectedItemPosition, long selectedId) {
                 id_desc = selectedId;
+
+                //Toast toast = Toast.makeText(getApplicationContext(),  "Ваш выбор: " + id_desc, Toast.LENGTH_SHORT);
+                //toast.show();
             }
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
 
+
         // открываем подключение
         db = databaseHelper.getWritableDatabase();
     }
-
-
 
 
     public void fill_spinLoc() {
@@ -105,8 +108,8 @@ public class CreateSTBActivity extends AppCompatActivity {
 
         userCursor =  db.rawQuery(sql, null);
 
-        userAdapter = new SimpleCursorAdapter(this, android.R.layout.simple_spinner_item, userCursor, from, to,0);
-        userAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        userAdapter = new SimpleCursorAdapter(this, R.layout.spin, userCursor, from, to,0);
+        userAdapter.setDropDownViewResource(R.layout.spin);
 
         spinLoc.setAdapter(userAdapter);
 
@@ -124,25 +127,33 @@ public class CreateSTBActivity extends AppCompatActivity {
 
         userCursor =  db.rawQuery(sql, null);
 
-        userAdapter = new SimpleCursorAdapter(this, android.R.layout.simple_spinner_item, userCursor, from, to,0);
-        userAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        userAdapter = new SimpleCursorAdapter(this, R.layout.spin, userCursor, from, to,0);
+        userAdapter.setDropDownViewResource(R.layout.spin);
 
         spinOrg.setAdapter(userAdapter);
+
+
+
 
         sql = "SELECT _id, name1 as name\n" +
                 "FROM texts";
         userCursor =  db.rawQuery(sql, null);
 
-        userAdapter = new SimpleCursorAdapter(this, android.R.layout.simple_spinner_item, userCursor, from, to,0);
-        userAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        userAdapter = new SimpleCursorAdapter(this, R.layout.spin, userCursor, from, to,0);
+        userAdapter.setDropDownViewResource(R.layout.spin);
 
         spinDesc.setAdapter(userAdapter);
     }
 
     public void saveSTB(View view){
 
-        Toast toast = Toast.makeText(getApplicationContext(),  "Ваш выбор: " + id_desc, Toast.LENGTH_SHORT);
-        toast.show();
+        ContentValues cv = new ContentValues();
+        cv.put("idorg", id_org);
+        cv.put("idl", id_loc);
+        cv.put("idt", id_desc);
+            db.insert("STB", null, cv);
+
+        goHome();
 
     }
 
@@ -151,7 +162,17 @@ public class CreateSTBActivity extends AppCompatActivity {
     public void onDestroy(){
         super.onDestroy();
         // Закрываем подключение и курсор
-        //db.close();
-        //userCursor.close();
+        db.close();
+        userCursor.close();
+    }
+
+    private void goHome(){
+        // закрываем подключение
+        db.close();
+        userCursor.close();
+
+        Intent intent = new Intent(this, STBActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        startActivity(intent);
     }
 }
