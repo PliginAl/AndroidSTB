@@ -21,6 +21,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -43,7 +44,7 @@ public class CreateStatusActivity extends AppCompatActivity {
 
     Intent takePhotoIntent;
     String mCurrentPhotoPath;
-    String sql;
+    String sql, desc = " ", comment="";
     Boolean photo = false;
     InputStream ims;
     byte[] image;
@@ -55,6 +56,7 @@ public class CreateStatusActivity extends AppCompatActivity {
     Spinner spinStatus;
     ImageView im_photo;
     CheckBox cb_zapret;
+    TextView tv_desc;
 
     Bitmap bp;
 
@@ -85,8 +87,10 @@ public class CreateStatusActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             id_stb = extras.getLong("id_stb");
-        }
+            desc  = extras.getString("desc");
+            comment = extras.getString("comment");
 
+        }
 
         spinStatus.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent,
@@ -107,6 +111,12 @@ public class CreateStatusActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
+
+        tv_desc.setText(desc);
+
+        if (comment.length()>0) {
+            et_comment.setText(comment);
+        }
 
         sql = "SELECT _id, namest as status\n" +
                 "FROM statusN\n" +
@@ -129,6 +139,7 @@ public class CreateStatusActivity extends AppCompatActivity {
         addPhoto = (Button) findViewById(R.id.addPhoto);
         spinStatus = (Spinner) findViewById(R.id.spinStatus);
         cb_zapret= (CheckBox) findViewById(R.id.cb_zapret);
+        tv_desc = (TextView) findViewById(R.id.tv_desc);
 
         this.im_photo = (ImageView) this.findViewById(R.id.im_photo);
         this.addPhoto = (Button) this.findViewById(R.id.addPhoto);

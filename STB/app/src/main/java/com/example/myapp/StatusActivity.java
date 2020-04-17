@@ -6,7 +6,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
@@ -16,7 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class StatusActivity extends AppCompatActivity {
 
-    String sql;
+    String sql, comment = "";
     long id_org = 0;
     long id_loc = 0;
     long id_desc = 0;
@@ -53,10 +55,30 @@ public class StatusActivity extends AppCompatActivity {
         databaseHelper = new DatabaseHelper(getApplicationContext());
 
 
+
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             id_stb = extras.getLong("id_stb");
         }
+
+
+        statusList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id_status) {
+
+                Intent intent = new Intent(getApplicationContext(), ImageActivity.class);
+                intent.putExtra("id_status", id_status);
+                startActivity(intent);
+            }
+        });
+
+
+
+
+
+
+
+
 
         // открываем подключение
         db = databaseHelper.getWritableDatabase();
@@ -67,7 +89,6 @@ public class StatusActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
-
 
         sql="SELECT STB._id, ORG.nameOrg as org, locats.nameloc as loc, texts.name1 as desc\n" +
                 "FROM ((STB INNER JOIN ORG ON STB.idorg = ORG._id) \n" +
@@ -84,8 +105,6 @@ public class StatusActivity extends AppCompatActivity {
         tv_desc.append(userCursor.getString(3));
 
 
-
-
         //получаем данные из бд в виде курсора
         sql="SELECT STATUS._id, zapret as stop, statusN.namest as status , begins as date, commentstatus as comment\n" +
                 "FROM STATUS INNER JOIN statusN ON STATUS.idstatusname = statusN._id\n" +
@@ -93,6 +112,11 @@ public class StatusActivity extends AppCompatActivity {
                 "ORDER BY date DESC";
 
         userCursor =  db.rawQuery(sql, null);
+
+        userCursor.moveToFirst();
+        if (userCursor.getCount()>0){
+            comment = userCursor.getString(4);
+        }
 
         userAdapter = new SimpleCursorAdapter(this, R.layout.item_status,userCursor,from,to,0);
         statusList.setAdapter(userAdapter);
@@ -102,6 +126,8 @@ public class StatusActivity extends AppCompatActivity {
     public void createStatus(View view){
         Intent intent = new Intent(getApplicationContext(), CreateStatusActivity.class);
         intent.putExtra("id_stb", id_stb);
+        intent.putExtra("desc",tv_desc.getText().toString());
+        intent.putExtra("comment", comment);
         startActivity(intent);
     }
 

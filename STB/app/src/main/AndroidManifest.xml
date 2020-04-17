@@ -29,6 +29,7 @@
         <activity android:name=".StatusActivity"></activity>
         <activity android:name=".CreateSTBActivity"></activity>
         <activity android:name=".CreateStatusActivity"></activity>
+        <activity android:name=".ImageActivity"></activity>
 
         <provider
             android:name=".GenericFileProvider"
