@@ -15,7 +15,6 @@ public class MainActivity extends AppCompatActivity {
     DatabaseHelper databaseHelper;
     ForCreateDB createDB;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,23 +23,9 @@ public class MainActivity extends AppCompatActivity {
         controlButton = (Button) findViewById(R.id.control);
         archiveButton = (Button) findViewById(R.id.archive);
 
-       /* userList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //Intent intent = new Intent(getApplicationContext(), UserActivity.class);
-                //intent.putExtra("id", id);
-                //startActivity(intent);
-                id_pass = id;
-                loginButton.setVisibility(View.VISIBLE);
-                passBox.setVisibility(View.VISIBLE);
-            }
-        });*/
-
         createDB = new ForCreateDB(getApplicationContext());
         databaseHelper = new DatabaseHelper(getApplicationContext());
     }
-
-
 
     public void control(View view){
             Intent intent = new Intent(getApplicationContext(), STBActivity.class);
@@ -60,8 +45,5 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onDestroy(){
         super.onDestroy();
-        // Закрываем подключение и курсор
-        //db.close();
-        //userCursor.close();
     }
 }

@@ -46,31 +46,22 @@ public class CreateSTBActivity extends AppCompatActivity {
 
         databaseHelper = new DatabaseHelper(getApplicationContext());
 
-
-         /*       spinOrg.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //Intent intent = new Intent(getApplicationContext(), UserActivity.class);
-                //intent.putExtra("id", id);
-                //startActivity(intent);
-                id_org = id;
-
-            }
-        });*/
-
+        //Обработчик события выбора организации из списка
         spinOrg.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent,
                                        View itemSelected, int selectedItemPosition, long selectedId) {
                 id_org = selectedId;
                 fill_spinLoc();
-                //Toast toast = Toast.makeText(getApplicationContext(),  "Ваш выбор: " + selectedId, Toast.LENGTH_SHORT);
+                //Toast toast = Toast.makeText(getApplicationContext(), "Сообщение", Toast.LENGTH_SHORT);
                 //toast.show();
             }
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
+        //
 
 
+        //Обработчик события выбора выработки из списка
         spinLoc.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent,
                                        View itemSelected, int selectedItemPosition, long selectedId) {
@@ -80,18 +71,16 @@ public class CreateSTBActivity extends AppCompatActivity {
             }
         });
 
+        //Обработчик события выбора описания из списка
         spinDesc.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent,
                                        View itemSelected, int selectedItemPosition, long selectedId) {
                 id_desc = selectedId;
-
-                //Toast toast = Toast.makeText(getApplicationContext(),  "Ваш выбор: " + id_desc, Toast.LENGTH_SHORT);
-                //toast.show();
             }
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
-
+        //
 
         // открываем подключение
         db = databaseHelper.getWritableDatabase();
@@ -101,16 +90,13 @@ public class CreateSTBActivity extends AppCompatActivity {
     public void fill_spinLoc() {
 
         //получаем данные из бд в виде курсора
-
         sql="SELECT locats._id, nameloc as name\n" +
                 "FROM ORG INNER JOIN locats ON ORG._id=locats.idorg\n" +
                 "WHERE ORG._id = " + id_org;
 
         userCursor =  db.rawQuery(sql, null);
-
         userAdapter = new SimpleCursorAdapter(this, R.layout.spin, userCursor, from, to,0);
         userAdapter.setDropDownViewResource(R.layout.spin);
-
         spinLoc.setAdapter(userAdapter);
 
     }
@@ -121,7 +107,7 @@ public class CreateSTBActivity extends AppCompatActivity {
     public void onResume() {
         super.onResume();
 
-        //получаем данные из бд в виде курсора
+        //Заполняем список организаций
         sql="SELECT _id, nameORG as name\n" +
                 "FROM ORG";
 
@@ -131,10 +117,9 @@ public class CreateSTBActivity extends AppCompatActivity {
         userAdapter.setDropDownViewResource(R.layout.spin);
 
         spinOrg.setAdapter(userAdapter);
+        //
 
-
-
-
+        //Заполняем список организаций
         sql = "SELECT _id, name1 as name\n" +
                 "FROM texts";
         userCursor =  db.rawQuery(sql, null);
@@ -143,16 +128,18 @@ public class CreateSTBActivity extends AppCompatActivity {
         userAdapter.setDropDownViewResource(R.layout.spin);
 
         spinDesc.setAdapter(userAdapter);
+        //
     }
 
+    //Обработчик события нажатия на кнопку "сохранить"
     public void saveSTB(View view){
-
         ContentValues cv = new ContentValues();
         cv.put("idorg", id_org);
         cv.put("idl", id_loc);
         cv.put("idt", id_desc);
             db.insert("STB", null, cv);
 
+            //Возвращаемся к предыдущему окну
         goHome();
 
     }
@@ -167,7 +154,6 @@ public class CreateSTBActivity extends AppCompatActivity {
     }
 
     private void goHome(){
-        // закрываем подключение
         db.close();
         userCursor.close();
 

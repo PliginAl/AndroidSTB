@@ -68,8 +68,6 @@ public class CreateStatusActivity extends AppCompatActivity {
     long id_statusN=0;
     int zapret = 0;
 
-
-
     String[] from = new String[] {"status"};
     int[] to = new  int[] {R.id.t1};
 
@@ -78,20 +76,22 @@ public class CreateStatusActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.newstatus_activity);
 
+        //Объявление элементов и обр. событий
         initInstances();
 
 
         databaseHelper = new DatabaseHelper(getApplicationContext());
 
-
+        //Получение данных, переданных порождающим окном
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             id_stb = extras.getLong("id_stb");
             desc  = extras.getString("desc");
             comment = extras.getString("comment");
-
         }
+        //
 
+        //Обработчик события выбора элемента из списка
         spinStatus.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent,
                                        View itemSelected, int selectedItemPosition, long selectedId) {
@@ -100,6 +100,7 @@ public class CreateStatusActivity extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
+        //
 
         // открываем подключение
         db = databaseHelper.getWritableDatabase();
@@ -144,6 +145,7 @@ public class CreateStatusActivity extends AppCompatActivity {
         this.im_photo = (ImageView) this.findViewById(R.id.im_photo);
         this.addPhoto = (Button) this.findViewById(R.id.addPhoto);
 
+        //Обработчик события нажатия на кнопку "добавить изображение"
        this.addPhoto.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -154,12 +156,11 @@ public class CreateStatusActivity extends AppCompatActivity {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-
             }
         });
     }
 
-
+    //Вызываем камеру
     void captureImage() throws IOException{
         takePhotoIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
@@ -199,11 +200,9 @@ public class CreateStatusActivity extends AppCompatActivity {
                     startActivityForResult(takePhotoIntent, REQUEST_TAKE_PHOTO);
                 }
             }
-
         }
-
-
     }
+    //
 
 
     private File createImageFile() throws IOException {
@@ -306,22 +305,12 @@ public class CreateStatusActivity extends AppCompatActivity {
     }
 
 
-   /* public void addPhoto(){
-        try {
-            captureImage();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }*/
-
     public void saveStatus(View view){
         ContentValues cv = new ContentValues();
         cv.put("idstb", id_stb);
         cv.put("commentstatus", et_comment.getText().toString());
         cv.put("idstatusname", id_statusN);
 
-        /*Toast toast = Toast.makeText(getApplicationContext(),  "Ваш выбор: " + id_statusN, Toast.LENGTH_SHORT);
-        toast.show();*/
 
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         if (photo.equals(true)){

@@ -23,14 +23,15 @@ public class STBActivity extends AppCompatActivity {
     ListView stbList;
     Button addSTBButton;
 
-
     DatabaseHelper databaseHelper;
     SQLiteDatabase db;
     Cursor userCursor;
     SimpleCursorAdapter userAdapter;
 
+    //Заголовки столбцов, которые нужно достать из запроса
     String[] from = new String[] {"date","org","loc","status","desc"};
     int[] to = new  int[] {R.id.date, R.id.org, R.id.loc, R.id.status, R.id.desc};
+    //
 
 
     @Override
@@ -38,15 +39,22 @@ public class STBActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stb);
 
+        //Объявление элементов
         initInstances();
+        //
 
         databaseHelper = new DatabaseHelper(this);
 
+        //Извлеаем данные, посланные предыдущим окном
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
+            //На контроле или архив
             stbCode = extras.getBoolean("code");
+            //
         }
+        //
 
+        //Обработчик события клика по элементу списка
         stbList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id_stb) {
@@ -56,7 +64,7 @@ public class STBActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
+        //
 
     }
 
@@ -65,10 +73,11 @@ public class STBActivity extends AppCompatActivity {
         addSTBButton = (Button) findViewById(R.id.addSTB);
     }
 
+    //Создание адаптера, соединяющего результат запроса с элементами отображения
     public void createSimCurAd() {
         userAdapter = new SimpleCursorAdapter(this, R.layout.item,userCursor,from,to,0);
     }
-
+    //
 
 
     @Override
@@ -76,7 +85,9 @@ public class STBActivity extends AppCompatActivity {
         super.onResume();
         // открываем подключение
         db = databaseHelper.getReadableDatabase();
-        //получаем данные из бд в виде курсора
+        //
+
+        //Запрос для "на контроле"
         if (stbCode == true)
         {
             sql="SELECT STB._id, tab1.date as date, ORG.nameOrg as org, locats.nameloc as loc, tab1.namest as status, texts.name1 as desc\n" +
@@ -91,6 +102,7 @@ public class STBActivity extends AppCompatActivity {
                     "WHERE tab1.idstatusname < 90\n" +
                     "ORDER BY STB._id DESC";
         }
+        //Запрос для "архив"
         else {
             addSTBButton.setVisibility(View.GONE);
             sql="SELECT STB._id, tab1.date as date, ORG.nameOrg as org, locats.nameloc as loc, tab1.namest as status, texts.name1 as desc\n" +
@@ -105,15 +117,11 @@ public class STBActivity extends AppCompatActivity {
                     "WHERE tab1.idstatusname > 90\n" +
                     "ORDER BY STB._id DESC";
         }
-
+        //Делаем запрос
         userCursor =  db.rawQuery(sql, null);
-        // определяем, какие столбцы из курсора будут выводиться в ListView
-        // создаем адаптер, передаем в него курсор
+        //
         createSimCurAd();
-      /*  userAdapter = new MyCursorAdapter(this, android.R.layout.list_item,
-                userCursor, headers, new int[]{android.R.id.accessibilityActionContextClick}, 0);*/
         stbList.setAdapter(userAdapter);
-
     }
 
     @Override
@@ -124,14 +132,12 @@ public class STBActivity extends AppCompatActivity {
         userCursor.close();
     }
 
-
+    //Обработчик события нажатия кнопки для создания предписания
     public void addSTB(View view){
-        // userCursor =  db.rawQuery("select passsen from USERS where _id =" + id_pass, null);
-        // userCursor.moveToFirst();
         Intent intent = new Intent(getApplicationContext(), CreateSTBActivity.class);
         startActivity(intent);
     }
-
+    //
 
 }
 
