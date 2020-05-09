@@ -99,6 +99,12 @@ public class StatusActivity extends AppCompatActivity {
         userCursor =  db.rawQuery(sql, null);
         userCursor.moveToFirst();
 
+
+        tv_id.setText("№ ");
+        tv_org.setText("Участок: ");
+        tv_loc.setText("Выработка: ");
+        tv_desc.setText("Описание: ");
+
         tv_id.append(userCursor.getString(0));
         tv_org.append(userCursor.getString(1));
         tv_loc.append(userCursor.getString(2));

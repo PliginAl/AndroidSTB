@@ -101,13 +101,10 @@ public class CreateStatusActivity extends AppCompatActivity {
             }
         });
         //
-
         // открываем подключение
         db = databaseHelper.getWritableDatabase();
         im_photo.setVisibility(View.GONE);
     }
-
-
 
     @Override
     public void onResume() {
@@ -152,7 +149,6 @@ public class CreateStatusActivity extends AppCompatActivity {
 
                 try {
                     captureImage();
-                    im_photo.setVisibility(View.VISIBLE);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -274,10 +270,6 @@ public class CreateStatusActivity extends AppCompatActivity {
 
 
 
-
-
-
-
     // When results returned
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -288,6 +280,7 @@ public class CreateStatusActivity extends AppCompatActivity {
             File file = new File(imageUri.getPath());
             try {
                 ims = new FileInputStream(file);
+                im_photo.setVisibility(View.VISIBLE);
                 im_photo.setImageBitmap(BitmapFactory.decodeStream(ims));
                 photo = true;
             } catch (FileNotFoundException e) {
@@ -301,6 +294,13 @@ public class CreateStatusActivity extends AppCompatActivity {
                         public void onScanCompleted(String path, Uri uri) {
                         }
                     });
+
+            try {
+                file.delete();
+            }
+            catch (Exception e){
+
+            }
         }
     }
 

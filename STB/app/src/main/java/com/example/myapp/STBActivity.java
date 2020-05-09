@@ -29,8 +29,8 @@ public class STBActivity extends AppCompatActivity {
     SimpleCursorAdapter userAdapter;
 
     //Заголовки столбцов, которые нужно достать из запроса
-    String[] from = new String[] {"date","org","loc","status","desc"};
-    int[] to = new  int[] {R.id.date, R.id.org, R.id.loc, R.id.status, R.id.desc};
+    String[] from = new String[] {"_id","date","org","loc","status","desc"};
+    int[] to = new  int[] {R.id.num,R.id.date, R.id.org, R.id.loc, R.id.status, R.id.desc};
     //
 
 

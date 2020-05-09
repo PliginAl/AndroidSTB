@@ -1,8 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/scroll"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
 
     <LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
@@ -17,11 +13,20 @@
             android:text="Изменение статуса"
             android:layout_gravity="center"/>
 
+    <Button
+        android:id="@+id/saveStatus"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:text="Сохранить"
+        android:onClick="saveStatus"
+        android:layout_gravity="right"/>
+
         <TextView
             android:id="@+id/tv_desc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Описание: " />
+            android:text="Описание: "
+            android:layout_marginTop="15dp"/>
 
         <LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
@@ -50,7 +55,6 @@
             android:layout_height="wrap_content"
             android:text="Запрещение работ"/>
 
-
         <LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -68,38 +72,24 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"/>
 
-
-
         </LinearLayout>
 
+    <Button
+        android:id="@+id/addPhoto"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:text="Добавить изображение"
+        android:onClick="addPhoto"
+        android:layout_gravity="center"
+        android:layout_marginTop="15dp"/>
 
 
         <ImageView
             android:id="@+id/im_photo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"/>
-
-        <Button
-            android:id="@+id/addPhoto"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:text="Добавить изображение"
-            android:onClick="addPhoto"
-            android:layout_gravity="center"/>
-
-        <Button
-            android:id="@+id/saveStatus"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:text="Сохранить"
-            android:onClick="saveStatus"
-            android:layout_gravity="center"/>
-
-
-
+            android:layout_marginTop="15dp"/>
 
 
 
     </LinearLayout>
-</ScrollView>
