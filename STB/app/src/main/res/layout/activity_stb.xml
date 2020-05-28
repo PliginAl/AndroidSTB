@@ -1,34 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="10dp">
 
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
     <Button
+        android:id="@+id/inSTB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="В АРХИВ"
+        android:onClick="inSTB"
+        android:textSize="9pt"
+        android:layout_gravity="left"/>
+
+        <Button
         android:id="@+id/addSTB"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Новое предписание"
         android:onClick="addSTB"
-        android:textSize="20dp"
-        android:layout_marginLeft="80dp"/>
+        android:textSize="9pt"
+        android:layout_gravity="right"/>
 
+</LinearLayout>
 
     <HorizontalScrollView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        <LinearLayout
             android:orientation="vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="0dp">
 
-            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
@@ -76,7 +86,6 @@
                     android:layout_weight="2"
                     android:text="Описание" />
 
-
             </LinearLayout>
 
         <ListView
@@ -86,5 +95,4 @@
 
         </LinearLayout>
     </HorizontalScrollView>
-
 </LinearLayout>

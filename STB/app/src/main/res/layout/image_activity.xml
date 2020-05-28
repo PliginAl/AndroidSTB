@@ -16,8 +16,6 @@
         android:id="@+id/im_photo_status"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="30dp"/>
-
-
-
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter"/>
 </LinearLayout>

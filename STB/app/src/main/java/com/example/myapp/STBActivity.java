@@ -22,6 +22,7 @@ public class STBActivity extends AppCompatActivity {
 
     ListView stbList;
     Button addSTBButton;
+    Button inSTBButton;
 
     DatabaseHelper databaseHelper;
     SQLiteDatabase db;
@@ -71,6 +72,7 @@ public class STBActivity extends AppCompatActivity {
     private void initInstances() {
         stbList = (ListView)findViewById(R.id.list_stb);
         addSTBButton = (Button) findViewById(R.id.addSTB);
+        inSTBButton = (Button) findViewById(R.id.inSTB);
     }
 
     //Создание адаптера, соединяющего результат запроса с элементами отображения
@@ -90,6 +92,7 @@ public class STBActivity extends AppCompatActivity {
         //Запрос для "на контроле"
         if (stbCode == true)
         {
+            inSTBButton.setText("В АРХИВ");
             sql="SELECT STB._id, tab1.date as date, ORG.nameOrg as org, locats.nameloc as loc, tab1.namest as status, texts.name1 as desc\n" +
                     "FROM\n" +
                     "(((((SELECT idstb, MAX(begins) as date, idstatusname, statusN.namest \n" +
@@ -104,6 +107,7 @@ public class STBActivity extends AppCompatActivity {
         }
         //Запрос для "архив"
         else {
+            inSTBButton.setText("НА КОНТРОЛЕ");
             addSTBButton.setVisibility(View.GONE);
             sql="SELECT STB._id, tab1.date as date, ORG.nameOrg as org, locats.nameloc as loc, tab1.namest as status, texts.name1 as desc\n" +
                     "FROM\n" +
@@ -135,6 +139,19 @@ public class STBActivity extends AppCompatActivity {
     //Обработчик события нажатия кнопки для создания предписания
     public void addSTB(View view){
         Intent intent = new Intent(getApplicationContext(), CreateSTBActivity.class);
+        startActivity(intent);
+    }
+    //
+
+    //Обработчик события нажатия кнопки для создания предписания
+    public void inSTB(View view){
+        Intent intent = new Intent(getApplicationContext(), STBActivity.class);
+        if (stbCode == true){
+            stbCode = false;
+        }else {
+            stbCode = true;
+        }
+        intent.putExtra("code", stbCode);
         startActivity(intent);
     }
     //

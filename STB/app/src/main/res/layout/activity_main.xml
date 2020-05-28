@@ -4,14 +4,6 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
 
-
-
-
-
-
-
-
-
     <Button
         android:id="@+id/control"
         android:layout_width="250dp"
@@ -21,7 +13,6 @@
         android:textSize="14pt"
         android:layout_gravity="center"/>
 
-
     <Button
         android:id="@+id/archive"
         android:layout_width="250dp"
@@ -30,6 +21,5 @@
         android:text="Архив"
         android:textSize="14pt"
         android:layout_gravity="center" />
-
 
 </LinearLayout>
